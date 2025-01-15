@@ -46,3 +46,9 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+footer div {
+  display: flex;
+  flex-direction: column;   
+
+}
