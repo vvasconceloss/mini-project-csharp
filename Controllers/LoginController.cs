@@ -2,8 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 
 public class LoginController : Controller
 {
-    public IActionResult Index()
+    public IActionResult Login()
     {
-        return View(); // Carrega a View de Login
+        return View();
+    }
+
+    public IActionResult Register()
+    {
+        return  View();
     }
 }
