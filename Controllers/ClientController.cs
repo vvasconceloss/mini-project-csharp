@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using mini_project_csharp.Models;
+using System.Collections.Generic;
 
 namespace mini_project_csharp.Controllers
 {
@@ -18,5 +20,10 @@ namespace mini_project_csharp.Controllers
     {
       return View();
     }
+    public IActionResult Add()
+    {
+      return View();
+    }
+    
   }
 }

@@ -1,0 +1,52 @@
+@{
+    ViewBag.Title = "Adicionar dados do Cliente";
+}
+
+<h2>Adicionar Dados do Cliente</h2>
+
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label for="Nome">Nome:</label>
+            <input id="Nome" name="Nome" class="form-control" placeholder="Nome" />
+        </div>
+
+        <div class="form-group">
+            <label for="Apelido">Apelido:</label>
+            <input id="Apelido" name="Apelido" class="form-control" placeholder="Apelido" />
+        </div>
+
+        <div class="form-group">
+            <label for="Telefone">Telefone:</label>
+            <input id="Telefone" name="Telefone" class="form-control" placeholder="Telefone" />
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input id="Email" name="Email" type="email" class="form-control" placeholder="Email" />
+        </div>
+
+        <div class="form-group">
+            <label for="Nif">NIF:</label>
+            <input id="Nif" name="Nif" class="form-control" placeholder="NIF" />
+        </div>
+
+        <div class="form-group">
+            <label for="CodPostal">Código Postal:</label>
+            <select id="CodPostal" name="CodPostal" class="form-control">
+                <option value="">Código Postal</option>
+                <option value="1000-001">1000-001</option>
+                <option value="2000-002">2000-002</option>
+                <option value="3000-003">3000-003</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password:</label>
+            <input id="Password" name="Password" type="password" class="form-control" placeholder="Password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/Client" class="btn btn-secondary" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
+    </form>
+</div>
