@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace mini_project_csharp.Models
 {
     public class Client 
     {
+        [Key]
         public int IdClient { get; set; }
         public required string Nome { get; set; }
         public string? Apelido { get; set; }
