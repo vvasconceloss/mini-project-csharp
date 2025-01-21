@@ -18,8 +18,8 @@ namespace mini_project_csharp.Models
         public required string Email { get; set; }
         public string? Nif { get; set; }
 
-        [Required(ErrorMessage = "A palavra-passe é obrigatória.")]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "A palavra-passe deve ter pelo menos 8 caracteres.")]
+        [Required(ErrorMessage = "A password é obrigatória.")]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "A password deve ter pelo menos 8 caracteres.")]
         public required string Password { get; set; }
 
         public int IdCodPostal { get; set; }
