@@ -28,12 +28,11 @@ namespace mini_project_csharp.Controllers
     {
         if (ModelState.IsValid)
         {
-        // Mapeando os dados da ViewModel para o modelo de banco de dados
             var client = new Client
             {
                 Nome = model.Nome,
                 Email = model.Email,
-                Password = model.Password // Certifique-se de hash/salvar a senha corretamente
+                Password = model.Password
             };
 
             _context.Add(client);
@@ -41,10 +40,7 @@ namespace mini_project_csharp.Controllers
 
             return RedirectToAction("Login", "Auth");
         }
-
-        // Retorna a mesma View com os erros de validação
         return View("Register", model);
     }
-
   }
 }
