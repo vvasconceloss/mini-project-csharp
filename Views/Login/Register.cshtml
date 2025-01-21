@@ -13,25 +13,24 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <h2 class="text-center">Registar</h2>
-                <form>
+            <div class="col-md-4 auth-div">
+                <h2 class="text-center title-auth">Bem-vindo! Faça seu Registo</h2>
+                <form class="form-auth">
                     <div class="form-group mb-3">
-                        <label for="password" class="form-label">Username</label>
-                        <input type="password" id="password" class="form-control" placeholder="Palavra-passe" />
+                        <label for="username" class="form-label">Username</label>
+                        <input type="username" id="username" class="form-control" placeholder="Username" />
                     </div>
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" id="email" class="form-control" placeholder="Email" />
+                        <input type="email" id="email" class="form-control" placeholder="Endereço de Email" />
                     </div>
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Palavra-passe</label>
                         <input type="password" id="password" class="form-control" placeholder="Palavra-passe" />
                     </div>
-                    <button type="button" class="btn btn-primary w-100">Registar</button>
+                    <button type="button" class="btn btn-primary w-100">Registo</button>
                 </form>
-                <h3 class="link-account">Já tem uma conta?</h3>
-                <a asp-area="" asp-controller="Login" asp-action="Login">Faça login</a>
+                <h3 class="link-account">Já tem uma conta? <a href="/Login/Login" asp-area="" asp-controller="Login" asp-action="Login">Faça login</a></h3>
             </div>
         </div>
     </div>
