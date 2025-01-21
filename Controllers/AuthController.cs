@@ -4,30 +4,47 @@ using mini_project_csharp.Models;
 
 namespace mini_project_csharp.Controllers
 {
-  public class AuthController(ApplicationDbContext context) : Controller
+  public class AuthController : Controller
   {
-    private readonly ApplicationDbContext _context = context;
+    private readonly ApplicationDbContext _context;
 
-        public IActionResult Login()
+    public AuthController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public IActionResult Login()
     {
         return View();
     }
 
     public IActionResult Register()
     {
-        return  View();
+        return View();
     }
 
-    public IActionResult RegisterClient(Client client) {
-      if (ModelState.IsValid)
-      {
-        _context.Add(client);
-        _context.SaveChanges();
+    [HttpPost]
+    public IActionResult RegisterClient(RegisterViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+        // Mapeando os dados da ViewModel para o modelo de banco de dados
+            var client = new Client
+            {
+                Nome = model.Nome,
+                Email = model.Email,
+                Password = model.Password // Certifique-se de hash/salvar a senha corretamente
+            };
 
-        return RedirectToAction("Login", "Auth");
-      }
+            _context.Add(client);
+            _context.SaveChanges();
 
-      return View("Register", client);
+            return RedirectToAction("Login", "Auth");
+        }
+
+        // Retorna a mesma View com os erros de validação
+        return View("Register", model);
     }
+
   }
 }
