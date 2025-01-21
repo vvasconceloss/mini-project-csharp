@@ -1,6 +1,6 @@
 
 @{
-    ViewData["Title"] = "Apagar";
+    ViewData["Title"] = "Apagar dados do Cliente";
 }
 
 <h2>Confirmação de Exclusão</h2>
@@ -16,5 +16,5 @@
 
 <form method="post" asp-action="DeleteConfirmed" asp-controller="Delete">
     <button type="submit" class="btn btn-danger">Apagar</button>
-    <a href="/" class="btn btn-secondary">Cancelar</a>
+    <a href="/Client" class="btn btn-secondary" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
 </form>

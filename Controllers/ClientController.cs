@@ -8,5 +8,15 @@ namespace mini_project_csharp.Controllers
     {
       return View();
     }
+
+    public IActionResult Edit()
+    {
+      return View();
+    }
+
+    public IActionResult Delete()
+    {
+      return View();
+    }
   }
 }

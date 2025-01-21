@@ -1,16 +1,12 @@
 @{
-    ViewData["Title"] = "Client Page";
+    ViewData["Title"] = "Clientes";
 }
 
 <div class="container mt-4">
     <h1 class="display-4 text-center mb-4">Clientes</h1>
-
-    <!-- Botão para Adicionar Novos Clientes -->
     <div class="text-right mb-3">
         <a href="@Url.Action("Create", "Clientes")" class="btn btn-primary">Adicionar Cliente</a>
     </div>
-
-    <!-- Tabela de Clientes -->
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -22,19 +18,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var cliente in Model)
-            {
                 <tr>
-                    <td>@cliente.Nome</td>
-                    <td>@cliente.Equipa</td>
-                    <td>@cliente.Tipo</td>
-                    <td>@cliente.CriadoPor</td>
+                    <td>Nome</td>
+                    <td>Equipa</td>
+                    <td>Tipo</td>
+                    <td>CriadoPor</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Clientes", new { id = cliente.Id })" class="btn btn-sm btn-primary">Editar</a>
-                        <a href="@Url.Action("Delete", "Clientes", new { id = cliente.Id })" class="btn btn-sm btn-primary">Apagar</a>
+                        <a href="@Url.Action("Edit", "Client", new { id = 1 })" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="@Url.Action("Delete", "Client", new { id = 1 })" class="btn btn-sm btn-primary">Apagar</a>
                     </td>
                 </tr>
-            }
         </tbody>
     </table>
 </div>
