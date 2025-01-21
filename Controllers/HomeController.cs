@@ -15,6 +15,11 @@ namespace mini_project_csharp.Controllers
             return View();
         }
 
+        public IActionResult Client()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
