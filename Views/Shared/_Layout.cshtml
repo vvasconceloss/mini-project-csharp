@@ -23,9 +23,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Index">Clientes</a>
                         </li>
                     </ul>
+                </div>
+                <div class="button-div">
+                    <a asp-area="" asp-controller="Login" asp-action="Login">
+                        <button class="button-header-auth" id="login-button">Login</button>
+                    </a>
+                    <a asp-area="" asp-controller="Login" asp-action="Register">
+                        <button class="button-header-auth" id="register-button">Registo</button>
+                    </a>
                 </div>
             </div>
         </nav>
@@ -35,10 +43,9 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" id="footer-component">
         <div class="container">
-            &copy; 2025 - projeto asp.net mvc- <a asp-area="" asp-controller="Home" asp-action="Privacy">Termos e Politica</a>
+            &copy; 2025 - PROJETO ASP.NET MVC
             <p>Copyright -  Grupo VDRJ</p>
             
         </div>
