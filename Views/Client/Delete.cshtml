@@ -1,0 +1,20 @@
+
+@{
+    ViewData["Title"] = "Apagar dados do Cliente";
+}
+
+<h2>Confirmação de Exclusão</h2>
+
+<p>Tem certeza de que deseja apagar o seguinte cliente?</p>
+
+<div class="form-auth">
+    <p><strong>Nome:</strong> </p>
+    <p><strong>Telefone:</strong> </p>
+    <p><strong>Email:</strong> </p>
+    <p><strong>NIF:</strong> </p>
+</div>
+
+<form method="post" asp-action="DeleteConfirmed" asp-controller="Delete">
+    <button type="submit" class="btn btn-danger">Apagar</button>
+    <a href="/Client" class="btn btn-secondary" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
+</form>
