@@ -26,3 +26,63 @@ body {
   bottom: 0;
   position: absolute;
 }
+
+.button-div > a {
+  text-decoration: none;
+}
+
+.button-header-auth {
+  width: 4.5rem;
+  padding: 0.2rem;
+
+  color: #FFFFFF;
+  transition: .5s ease all;
+
+  border-radius: 0.3rem;
+  border: 0.1rem solid #F2F2F2;
+}
+
+#login-button {
+  border-color: #1e3a8a;
+  background-color: #1e3a8a;
+}
+
+#login-button:hover {
+  color: #1e3a8a;
+  background-color: #FFFFFF;
+}
+
+#register-button {
+  color: #1e3a8a;
+
+  border-color: #1e3a8a;
+  background-color: transparent;
+}
+
+#register-button:hover {
+  color: #FFFFFF;
+
+  background-color: #1e3a8a;
+}
+
+.link-account {
+  margin: 1.0rem 0;
+  font-size: 1.1rem;
+}
+
+.form-auth {
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+
+  border-radius: 0.5rem;
+  background-color: #F2F2F2;
+  border: 1px solid #1e3b8a28;
+}
+
+.auth-div { width: 100%; }
+
+.title-auth {
+  width: max-content;
+  font-size: 1.3rem;
+  text-align: center;
+}
