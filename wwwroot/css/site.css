@@ -42,12 +42,14 @@ body {
   border: 0.1rem solid #F2F2F2;
 }
 
-#login-button {
+#login-button,
+#logout-button {
   border-color: #1e3a8a;
   background-color: #1e3a8a;
 }
 
-#login-button:hover {
+#login-button:hover,
+#logout-button:hover {
   color: #1e3a8a;
   background-color: #FFFFFF;
 }
