@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mini_project_csharp.Data;
 
@@ -10,9 +11,11 @@ using mini_project_csharp.Data;
 namespace mini_project_csharp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250122165123_UpdateTableName")]
+    partial class UpdateTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,11 +26,11 @@ namespace mini_project_csharp.Migrations
 
             modelBuilder.Entity("mini_project_csharp.Models.Client", b =>
                 {
-                    b.Property<int>("IdClientes")
+                    b.Property<int>("IdClient")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdClientes"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdClient"));
 
                     b.Property<string>("Apelido")
                         .HasColumnType("longtext");
@@ -57,7 +60,7 @@ namespace mini_project_csharp.Migrations
                     b.Property<string>("Telefone")
                         .HasColumnType("longtext");
 
-                    b.HasKey("IdClientes");
+                    b.HasKey("IdClient");
 
                     b.ToTable("Clientes", (string)null);
                 });

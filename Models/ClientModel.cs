@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mini_project_csharp.Models
 {
+    [Table("Clientes")]
     public class Client 
     {
         [Key]
-        public int IdClient { get; set; }
+        public int IdClientes { get; set; }
 
         [Required(ErrorMessage = "O nome é obrigatório.")]
         public required string Nome { get; set; }
@@ -22,6 +24,6 @@ namespace mini_project_csharp.Models
         [StringLength(100, MinimumLength = 8, ErrorMessage = "A password deve ter pelo menos 8 caracteres.")]
         public required string Password { get; set; }
 
-        public int IdCodPostal { get; set; }
+        public int IdCodPostal { get; set; } = 1;
     }
 }

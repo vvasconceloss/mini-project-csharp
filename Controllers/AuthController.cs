@@ -51,7 +51,7 @@ namespace mini_project_csharp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = _context.Clients.FirstOrDefault(c => c.Email == model.Email);
+                var user = _context.Clientes.FirstOrDefault(c => c.Email == model.Email);
 
                 if (user != null && user.Password == model.Password)
                 {
