@@ -32,6 +32,10 @@ body {
   margin-top: auto;
 }
 
+.form-control {
+  margin-bottom: 0.5rem;
+}
+
 .button-div > a {
   text-decoration: none;
 }
@@ -95,4 +99,32 @@ body {
   width: max-content;
   font-size: 1.3rem;
   text-align: center;
+}
+
+.add-buttons {
+  margin: 1.5rem 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.button-add-client {
+  width: 5.0rem;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: .5s ease all;
+
+  border-radius: 0.5rem;
+  background-color: #1e3a8a;
+  border: 1px solid #1e3a8a;
+}
+
+.button-add-client:hover {
+  color: #1e3a8a;
+  
+  background-color: transparent;
 }
