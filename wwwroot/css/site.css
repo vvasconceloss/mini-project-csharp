@@ -13,18 +13,23 @@ html {
 }
 
 html {
+  min-height: 100vh;
   position: relative;
-  min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 #footer-component {
   width: 100%;
-  bottom: 0;
-  position: absolute;
+  position: relative;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin-top: auto;
 }
 
 .button-div > a {
@@ -81,7 +86,10 @@ body {
   border: 1px solid #1e3b8a28;
 }
 
-.auth-div { width: 100%; }
+.auth-div { 
+  width: 100%;
+  margin: 1.5rem 0;
+}
 
 .title-auth {
   width: max-content;
