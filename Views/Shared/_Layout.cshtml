@@ -28,12 +28,21 @@
                     </ul>
                 </div>
                 <div class="button-div">
-                    <a asp-area="" asp-controller="Auth" asp-action="Login">
-                        <button class="button-header-auth" id="login-button">Login</button>
-                    </a>
-                    <a asp-area="" asp-controller="Auth" asp-action="Register">
-                        <button class="button-header-auth" id="register-button">Registo</button>
-                    </a>
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a asp-area="" asp-controller="Auth" asp-action="Logout">
+                            <button class="button-header-auth" id="logout-button">Logout</button>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-area="" asp-controller="Auth" asp-action="Login">
+                            <button class="button-header-auth" id="login-button">Login</button>
+                        </a>
+                        <a asp-area="" asp-controller="Auth" asp-action="Register">
+                            <button class="button-header-auth" id="register-button">Registo</button>
+                        </a>
+                    }
                 </div>
             </div>
         </nav>
