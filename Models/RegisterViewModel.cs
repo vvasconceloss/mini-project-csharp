@@ -13,6 +13,9 @@ namespace mini_project_csharp.Models
 
         [Required]
         [MinLength(8, ErrorMessage = "A palavra-passe deve ter pelo menos 8 caracteres.")]
+        [RegularExpression(
+            @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$", 
+            ErrorMessage = "A palavra-passe deve conter pelo menos uma letra minúscula, uma letra maiúscula, um número e um caractere especial.")]
         public required string Password { get; set; }
 
         [Required]
