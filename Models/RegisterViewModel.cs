@@ -4,21 +4,21 @@ namespace mini_project_csharp.Models
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Um nome precisa ser introduzida.")]
         public required string Nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Um email precisa ser introduzido.")]
         [EmailAddress]
         public required string Email { get; set; }
 
-        [Required]
-        [MinLength(8, ErrorMessage = "A palavra-passe deve ter pelo menos 8 caracteres.")]
+        [Required(ErrorMessage = "Uma password precisa ser definida.")]
+        [MinLength(8, ErrorMessage = "A password deve ter pelo menos 8 caracteres.")]
         [RegularExpression(
             @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).+$", 
-            ErrorMessage = "A palavra-passe deve conter pelo menos uma letra minúscula, uma letra maiúscula, um número e um caractere especial.")]
+            ErrorMessage = "A password deve conter pelo menos uma letra minúscula, uma letra maiúscula, um número e um caractere especial.")]
         public required string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Uma confirmação precisa ser definida.")]
         [Compare("Password", ErrorMessage = "As palavras-passe não coincidem.")]
         public required string ConfirmPassword { get; set; }
     }
