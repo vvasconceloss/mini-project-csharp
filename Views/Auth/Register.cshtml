@@ -18,8 +18,7 @@
             <div class="col-md-4 auth-div">
                 <h2 class="text-center title-auth">Bem-vindo! Faça seu Registo</h2>
                 <div asp-validation-summary="All" class="text-danger"></div>
-
-                @using (Html.BeginForm("RegisterClient", "Auth", FormMethod.Post))
+                @using (Html.BeginForm("RegisterClient", "Auth", FormMethod.Post, new { @class = "form-auth" }))
                 {
                     <div class="form-group mb-3">
                         <label for="nome" class="form-label">Nome</label>
@@ -43,7 +42,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Registo</button>
                 }
-
                 <h3 class="link-account">Já tem uma conta? <a href="/Auth/Login" asp-area="" asp-controller="Auth" asp-action="Login">Faça login</a></h3>
             </div>
         </div>
