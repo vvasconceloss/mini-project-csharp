@@ -53,22 +53,31 @@ namespace mini_project_csharp.Controllers
             {
                 var user = _context.Clientes.FirstOrDefault(c => c.Email == model.Email);
 
-                if (user != null && user.Password == model.Password)
+                if (user == null)
                 {
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, user.Nome),
-                        new Claim(ClaimTypes.Email, user.Email)
-                    };
-
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(nameof(model.Email), "Este utilizador não existe.");
                 }
+                else
+                {
+                    if (user != null && user.Password == model.Password)
+                    {
+                        var claims = new List<Claim>
+                        {
+                            new(ClaimTypes.Name, user.Nome),
+                            new(ClaimTypes.Email, user.Email)
+                        };
 
-                ModelState.AddModelError(string.Empty, "Credenciais inválidas.");
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(nameof(model.Password), "A password está incorreta. Tente novamente.");
+                    }
+                }
             }
 
             return View("Login", model);
