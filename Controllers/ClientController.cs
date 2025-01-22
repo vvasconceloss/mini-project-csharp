@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mini_project_csharp.Controllers
 {
+  [Authorize]
   public class ClientController : Controller
   {
     public IActionResult Index()

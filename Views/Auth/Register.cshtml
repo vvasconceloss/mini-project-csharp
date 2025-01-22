@@ -18,7 +18,9 @@
             <div class="col-md-4 auth-div">
                 <h2 class="text-center title-auth">Bem-vindo! Faça seu Registo</h2>
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <form class="form-auth" action="/Auth/RegisterClient" method="post">
+
+                @using (Html.BeginForm("RegisterClient", "Auth", FormMethod.Post))
+                {
                     <div class="form-group mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" id="nome" name="Nome" class="form-control"/>
@@ -26,7 +28,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="tetx" id="email" name="Email" class="form-control"/>
+                        <input type="text" id="email" name="Email" class="form-control"/>
                         @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group mb-3">
@@ -40,7 +42,8 @@
                         @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "text-danger" })
                     </div>
                     <button type="submit" class="btn btn-primary w-100">Registo</button>
-                </form>
+                }
+
                 <h3 class="link-account">Já tem uma conta? <a href="/Auth/Login" asp-area="" asp-controller="Auth" asp-action="Login">Faça login</a></h3>
             </div>
         </div>
