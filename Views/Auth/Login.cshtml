@@ -17,17 +17,19 @@
         <div class="row justify-content-center">
             <div class="col-md-4 auth-div">
                 <h2 class="text-center title-auth">Bem-vindo de volta! Faça o seu Login</h2>
-                    @using (Html.BeginForm("LoginClient", "Auth", FormMethod.Post)){
-                        <div class="form-group mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" name="Email" id="email" class="form-control" placeholder="Endereço de Email" />
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="password" class="form-label">Palavra-passe</label>
-                            <input type="password" name="Password" id="password" class="form-control" placeholder="Palavra-passe" />
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                    }
+                @using (Html.BeginForm("LoginClient", "Auth", FormMethod.Post, new { @class = "form-auth" })){
+                    <div class="form-group mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Email)</span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="password" class="form-label">Palavra-passe</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                }
                 <h3 class="link-account">Não tem uma conta? <a href="/Auth/Register" asp-area="" asp-controller="Auth" asp-action="Register">Faça o registo</a></h3>
             </div>
         </div>
