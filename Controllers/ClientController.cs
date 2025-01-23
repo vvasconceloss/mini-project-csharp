@@ -22,7 +22,7 @@ namespace mini_project_csharp.Controllers
     {
       var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
       ViewBag.TotalClientes = clients.Count;
-      
+
       return View(clients);
     }
 
@@ -144,33 +144,32 @@ namespace mini_project_csharp.Controllers
 
       return RedirectToAction("Index");
     }
-
-[HttpGet]
-public IActionResult Delete(int id)
-{
-    var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id); 
-    if (client == null)
+    
+    [HttpGet]
+    public IActionResult Delete(int id)
     {
+      var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id); 
+      if (client == null)
+      {
         return NotFound(); 
+      }
+      
+      return View(client); 
     }
-    return View(client); 
-}
-[HttpPost]
-[ValidateAntiForgeryToken]
-public IActionResult DeleteConfirmed(int id)
-{
-    var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id);
-    if (client == null)
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteConfirmed(Client client)
     {
+      var clientToDelete = _context.Clientes.FirstOrDefault(c => c.IdClientes == client.IdClientes);
+      if (clientToDelete == null)
+      {
         return NotFound();
+      }
+      
+      _context.Clientes.Remove(clientToDelete);
+      _context.SaveChanges();
+      return RedirectToAction("Index");
     }
-
-    _context.Clientes.Remove(client);
-    _context.SaveChanges();
-
-    return RedirectToAction("Index");
-}
-
-
   }
 }
