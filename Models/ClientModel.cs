@@ -29,5 +29,8 @@
 
             [ForeignKey("IdCodPostal")]
             public int? IdCodPostal { get; set; }
+            
+            [ForeignKey("IdCodPostal")]
+            public CodPostal? CodPostal { get; set; }
         }
     }
