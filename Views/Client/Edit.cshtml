@@ -1,52 +1,71 @@
+@model mini_project_csharp.Models.Client
+
 @{
-    ViewBag.Title = "Editar dados do Cliente";
+    ViewBag.Title = "Editar Cliente";
 }
 
-<h2>Editar Dados do Cliente</h2>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center title-auth">Editar Cliente</h2>
+        @using (Html.BeginForm("Edit", "Client", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.IdClientes)
 
-<div class="container">
-    <form method="post">
-        <div class="form-group">
-            <label for="Nome">Nome:</label>
-            <input id="Nome" name="Nome" class="form-control" placeholder="Nome" />
-        </div>
-
-        <div class="form-group">
-            <label for="Apelido">Apelido:</label>
-            <input id="Apelido" name="Apelido" class="form-control" placeholder="Apelido" />
-        </div>
-
-        <div class="form-group">
-            <label for="Telefone">Telefone:</label>
-            <input id="Telefone" name="Telefone" class="form-control" placeholder="Telefone" />
-        </div>
-
-        <div class="form-group">
-            <label for="Email">Email:</label>
-            <input id="Email" name="Email" type="email" class="form-control" placeholder="Email" />
-        </div>
-
-        <div class="form-group">
-            <label for="Nif">NIF:</label>
-            <input id="Nif" name="Nif" class="form-control" placeholder="NIF" />
-        </div>
-
-        <div class="form-group">
-            <label for="CodPostal">Código Postal:</label>
-            <select id="CodPostal" name="CodPostal" class="form-control">
-                <option value="">Código Postal</option>
-                <option value="1000-001">1000-001</option>
-                <option value="2000-002">2000-002</option>
-                <option value="3000-003">3000-003</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="Password">Password:</label>
-            <input id="Password" name="Password" type="password" class="form-control" placeholder="Password" />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="/Client" class="btn btn-secondary" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="Nome" class="form-label">Nome @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })</label>
+                <input id="Nome" name="Nome" class="form-control" value="@Model.Nome"/>
+            </div>
+            <div class="form-group">
+                <label for="Apelido" class="form-label">Apelido</label>
+                <input id="Apelido" name="Apelido" class="form-control" value="@Model.Apelido" />
+            </div>
+            <div class="form-group">
+                <label for="Endereço" class="form-label">Endereço</label>
+                <input id="Endereço" name="Endereco" class="form-control" value="@Model.Endereco" />
+            </div>
+            <div class="form-group">
+                <label for="Telefone" class="form-label">Telefone</label>
+                <input id="Telefone" name="Telefone" class="form-control" value="@Model.Telefone" />
+            </div>
+            <div class="form-group">
+                <label for="Email" class="form-label">Email @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })</label>
+                <input id="Email" name="Email" type="email" class="form-control" value="@Model.Email" />
+            </div>
+            <div class="form-group" class="form-label">
+                <label for="Nif">NIF:</label>
+                <input id="Nif" name="Nif" class="form-control" value="@Model.Nif" />
+            </div>
+            <div class="form-group">
+                <label for="CodPostal" class="form-label">Código Postal</label>
+                <select id="CodPostal" name="IdCodPostal" class="form-control">
+                    @if (ViewBag.CodPostais != null)
+                    {
+                        foreach (var item in (List<SelectListItem>)ViewBag.CodPostais)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group" hidden>
+                <label for="Password" class="form-label">Password @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })</label>
+                <input id="Password" name="Password" type="password" class="form-control" value="@Model.Password"/>
+            </div>
+            <div class="add-buttons">
+                <button type="submit" class="button-add-client">Editar</button>
+                <a href="/Client" class="button-add-client" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
+            </div>
+        }
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
