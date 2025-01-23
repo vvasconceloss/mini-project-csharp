@@ -1,20 +1,26 @@
+@model mini_project_csharp.Models.Client
 
 @{
-    ViewData["Title"] = "Apagar dados do Cliente";
+    ViewData["Title"] = "Apagar Cliente";
 }
 
 <h2>Confirmação de Exclusão</h2>
 
 <p>Tem certeza de que deseja apagar o seguinte cliente?</p>
 
-<div class="form-auth">
-    <p><strong>Nome:</strong> </p>
-    <p><strong>Telefone:</strong> </p>
-    <p><strong>Email:</strong> </p>
-    <p><strong>NIF:</strong> </p>
+<div>
+    <p><strong>Nome:</strong> @Model.Nome</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Telefone:</strong> @Model.Telefone</p>
+    <p><strong>NIF:</strong> @Model.Nif</p>
 </div>
 
-<form method="post" asp-action="DeleteConfirmed" asp-controller="Delete">
+@using (Html.BeginForm("DeleteConfirmed", "Client", FormMethod.Post, new { @class = "form-inline" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.IdClientes)
+
     <button type="submit" class="btn btn-danger">Apagar</button>
-    <a href="/Client" class="btn btn-secondary" asp-area="" asp-controller="Client" asp-action="Index">Cancelar</a>
-</form>
+    <a href="@Url.Action("Index", "Client")" class="btn btn-secondary">Cancelar</a>
+}
