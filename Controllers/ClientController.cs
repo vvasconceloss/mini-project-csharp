@@ -3,6 +3,7 @@ using mini_project_csharp.Data;
 using mini_project_csharp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace mini_project_csharp.Controllers
 {
@@ -18,7 +19,7 @@ namespace mini_project_csharp.Controllers
 
     public IActionResult Index()
     {
-      var clients = _context.Clientes.ToList();
+      var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
       return View(clients);
     }
 
