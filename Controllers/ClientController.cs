@@ -23,16 +23,6 @@ namespace mini_project_csharp.Controllers
       return View(clients);
     }
 
-    public IActionResult Edit()
-    {
-      return View();
-    }
-
-    public IActionResult Delete()
-    {
-      return View();
-    }
-
     [HttpGet]
     public IActionResult Add()
     {
@@ -56,7 +46,7 @@ namespace mini_project_csharp.Controllers
         var codPostais = _context.CodPostals.Select(c => new SelectListItem
         {
           Value = c.IdCodPostal.ToString(),
-          Text = c.Codpostal + " - " + c.Localidade
+          Text = c.CodPostalFormatado
         }).ToList();
 
         ViewBag.CodPostais = codPostais;
@@ -80,6 +70,77 @@ namespace mini_project_csharp.Controllers
       _context.SaveChanges();
 
       return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+      Console.WriteLine(id);
+
+      var client = _context.Clientes.Find(id);
+
+      if (client == null)
+      {
+        return NotFound();
+      }
+      
+      var codPostais = _context.CodPostals.Select(c => new SelectListItem
+      {
+        Value = c.IdCodPostal.ToString(),
+        Text = c.CodPostalFormatado
+      }).ToList();
+      
+      ViewBag.CodPostais = codPostais;
+
+      return View(client);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(Client updatedClient)
+    {
+      if (!ModelState.IsValid)
+      {
+        var codPostais = _context.CodPostals.Select(c => new SelectListItem
+        {
+          Value = c.IdCodPostal.ToString(),
+          Text = c.CodPostalFormatado
+          }).ToList();
+          
+          ViewBag.CodPostais = codPostais;
+          return View(updatedClient);
+      }
+
+      var client = _context.Clientes.Find(updatedClient.IdClientes);
+      
+      if (client == null)
+      {
+        return NotFound();
+      }
+
+      client.Nome = updatedClient.Nome;
+      client.Apelido = updatedClient.Apelido;
+      client.Endereco = updatedClient.Endereco;
+      client.Telefone = updatedClient.Telefone;
+      client.Nif = updatedClient.Nif;
+      client.Email = updatedClient.Email;
+      
+      if (!string.IsNullOrEmpty(updatedClient.Password))
+      {
+        client.Password = updatedClient.Password;
+      }
+      
+      client.IdCodPostal = updatedClient.IdCodPostal;
+
+      _context.Clientes.Update(client);
+      _context.SaveChanges();
+
+      return RedirectToAction("Index");
+    }
+
+    public IActionResult Delete()
+    {
+      return View();
     }
   }
 }
