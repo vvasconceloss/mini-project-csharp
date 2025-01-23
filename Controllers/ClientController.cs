@@ -131,7 +131,8 @@ namespace mini_project_csharp.Controllers
       
       if (!string.IsNullOrEmpty(updatedClient.Password))
       {
-        client.Password = updatedClient.Password;
+        var passwordService = new PasswordService();
+        client.Password = passwordService.HashPassword(updatedClient.Password);
       }
       
       client.IdCodPostal = updatedClient.IdCodPostal;
