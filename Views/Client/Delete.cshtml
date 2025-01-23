@@ -15,12 +15,10 @@
     <p><strong>NIF:</strong> @Model.Nif</p>
 </div>
 
-@using (Html.BeginForm("DeleteConfirmed", "Client", FormMethod.Post, new { @class = "form-inline" }))
+@using (Html.BeginForm("DeleteConfirmed", "Client", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
     @Html.HiddenFor(model => model.IdClientes)
-
     <button type="submit" class="btn btn-danger">Apagar</button>
     <a href="@Url.Action("Index", "Client")" class="btn btn-secondary">Cancelar</a>
 }
