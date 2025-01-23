@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using mini_project_csharp.Data;
 using mini_project_csharp.Models;
+using mini_project_csharp.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace mini_project_csharp.Controllers
 {
@@ -53,7 +54,10 @@ namespace mini_project_csharp.Controllers
 
         return View(newClient);
       }
-      
+
+      var passwordService = new PasswordService();
+      newClient.Password = passwordService.HashPassword(newClient.Password);
+
       var client = new Client
       {
         Nome = newClient.Nome,
