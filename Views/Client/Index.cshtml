@@ -18,6 +18,7 @@
                 <th>Telefone</th>
                 <th>Email</th>
                 <th>NIF</th>
+                <th>Código Postal</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                     <td>@client.Telefone</td>
                     <td>@client.Email</td>
                     <td>@client.Nif</td>
+                    <th>@client.IdCodPostal</th>
                     <td>
                         <a href="@Url.Action("Edit", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-primary">Editar</a>
                         <a href="@Url.Action("Delete", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-danger">Apagar</a>
