@@ -13,18 +13,27 @@ html {
 }
 
 html {
+  min-height: 100vh;
   position: relative;
-  min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 #footer-component {
   width: 100%;
-  bottom: 0;
-  position: absolute;
+  position: relative;
+  background-color: #f1f1f1;
+  padding: 10px;
+  margin-top: auto;
+}
+
+.form-control {
+  margin-bottom: 0.5rem;
 }
 
 .button-div > a {
@@ -81,10 +90,41 @@ body {
   border: 1px solid #1e3b8a28;
 }
 
-.auth-div { width: 100%; }
+.auth-div { 
+  width: 100%;
+  margin: 1.5rem 0;
+}
 
 .title-auth {
   width: max-content;
   font-size: 1.3rem;
   text-align: center;
+}
+
+.add-buttons {
+  margin: 1.5rem 0;
+
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.button-add-client {
+  width: 5.0rem;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: .5s ease all;
+
+  border-radius: 0.5rem;
+  background-color: #1e3a8a;
+  border: 1px solid #1e3a8a;
+}
+
+.button-add-client:hover {
+  color: #1e3a8a;
+  
+  background-color: transparent;
 }

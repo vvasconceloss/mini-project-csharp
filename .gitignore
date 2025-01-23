@@ -17,7 +17,6 @@ project.lock.json
 *.cache
 *.pdb
 
-appsettings.json
 appsettings.*.json
 *.pfx
 *.key

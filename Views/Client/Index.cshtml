@@ -1,3 +1,5 @@
+@model IEnumerable<mini_project_csharp.Models.Client>
+
 @{
     ViewData["Title"] = "Clientes";
 }
@@ -11,23 +13,32 @@
         <thead class="thead-dark">
             <tr>
                 <th>Nome</th>
-                <th>Equipa</th>
-                <th>Tipo</th>
-                <th>Criado Por</th>
+                <th>Apelido</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>NIF</th>
+                <th>Código Postal</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
+            @foreach (var client in Model)
+            {
                 <tr>
-                    <td>Nome</td>
-                    <td>Equipa</td>
-                    <td>Tipo</td>
-                    <td>CriadoPor</td>
+                    <td>@client.Nome</td>
+                    <td>@client.Apelido</td>
+                    <td>@client.Endereco</td>
+                    <td>@client.Telefone</td>
+                    <td>@client.Email</td>
+                    <td>@client.Nif</td>
+                    <td>@client.CodPostal?.CodPostalFormatado</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Client", new { id = 1 })" class="btn btn-sm btn-primary">Editar</a>
-                        <a href="@Url.Action("Delete", "Client", new { id = 1 })" class="btn btn-sm btn-primary">Apagar</a>
+                        <a href="@Url.Action("Edit", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-primary">Editar</a>
+                        <a href="@Url.Action("Delete", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-danger">Apagar</a>
                     </td>
                 </tr>
+            }
         </tbody>
     </table>
 </div>
