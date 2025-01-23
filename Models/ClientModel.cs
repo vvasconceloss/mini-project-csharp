@@ -28,7 +28,7 @@
             public required string Password { get; set; }
 
             [ForeignKey("IdCodPostal")]
-            public int? IdCodPostal { get; set; }
+            public int IdCodPostal { get; set; } = 1;
             
             [ForeignKey("IdCodPostal")]
             public CodPostal? CodPostal { get; set; }
