@@ -143,9 +143,32 @@ namespace mini_project_csharp.Controllers
       return RedirectToAction("Index");
     }
 
-    public IActionResult Delete()
+[HttpGet]
+public IActionResult Delete(int id)
+{
+    var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id); 
+    if (client == null)
     {
-      return View();
+        return NotFound(); 
     }
+    return View(client); 
+}
+[HttpPost]
+[ValidateAntiForgeryToken]
+public IActionResult DeleteConfirmed(int id)
+{
+    var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id);
+    if (client == null)
+    {
+        return NotFound();
+    }
+
+    _context.Clientes.Remove(client);
+    _context.SaveChanges();
+
+    return RedirectToAction("Index");
+}
+
+
   }
 }
