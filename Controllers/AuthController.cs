@@ -2,6 +2,7 @@ using System.Security.Claims;
 using mini_project_csharp.Data;
 using Microsoft.AspNetCore.Mvc;
 using mini_project_csharp.Models;
+using mini_project_csharp.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -31,11 +32,14 @@ namespace mini_project_csharp.Controllers
         {
             if (ModelState.IsValid)
             {
+                var passwordService = new PasswordService();
+                var hashedPassword = passwordService.HashPassword(model.Password);
+
                 var client = new Client
                 {
                     Nome = model.Nome,
                     Email = model.Email,
-                    Password = model.Password
+                    Password = hashedPassword
                 };
 
                 _context.Add(client);
@@ -59,18 +63,19 @@ namespace mini_project_csharp.Controllers
                 }
                 else
                 {
-                    if (user != null && user.Password == model.Password)
+                    var passwordService = new PasswordService();
+                    
+                    if (passwordService.VerifyPassword(user.Password, model.Password))
                     {
                         var claims = new List<Claim>
                         {
                             new(ClaimTypes.Name, user.Nome),
                             new(ClaimTypes.Email, user.Email)
                         };
-
+                        
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
+                        
                         return RedirectToAction("Index", "Home");
                     }
                     else
