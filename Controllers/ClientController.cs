@@ -21,6 +21,8 @@ namespace mini_project_csharp.Controllers
     public IActionResult Index()
     {
       var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
+      ViewBag.TotalClientes = clients.Count;
+      
       return View(clients);
     }
 
