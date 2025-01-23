@@ -4,11 +4,11 @@ namespace mini_project_csharp.Models
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Um nome precisa ser introduzida.")]
+        [Required(ErrorMessage = "Um nome precisa ser introduzido.")]
         public required string Nome { get; set; }
 
         [Required(ErrorMessage = "Um email precisa ser introduzido.")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "O este endereço de email não é válido.")]
         public required string Email { get; set; }
 
         [Required(ErrorMessage = "Uma password precisa ser definida.")]
