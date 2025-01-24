@@ -64,12 +64,15 @@ namespace mini_project_csharp.Controllers
                 else
                 {
                     var passwordService = new PasswordService();
+                    var userIdString = user.IdClientes.ToString();
+
                     if (passwordService.VerifyPassword(user.Password, model.Password))
                     {
                         var claims = new List<Claim>
                         {
                             new(ClaimTypes.Name, user.Nome),
-                            new(ClaimTypes.Email, user.Email)
+                            new(ClaimTypes.Email, user.Email),
+                            new(ClaimTypes.NameIdentifier, userIdString),
                         };
                         
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
