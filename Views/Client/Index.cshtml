@@ -38,7 +38,7 @@
                     <td>@client.CodPostal?.CodPostalFormatado</td>
                     <td>
                         <a href="@Url.Action("Edit", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-primary">Editar</a>
-                        <a href="@Url.Action("Delete", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-danger" @(client.IdClientes.ToString() == loggedInUserId ? "disabled" : "")>Apagar</a>
+                        <a href="@Url.Action("Delete", "Client", new { id = client.IdClientes })" class="btn btn-sm btn-danger @(client.IdClientes.ToString() == loggedInUserId ? "disabled" : "")" @(client.IdClientes.ToString() == loggedInUserId ? "disabled" : "")>Apagar</a>
                     </td>
                 </tr>
             }
