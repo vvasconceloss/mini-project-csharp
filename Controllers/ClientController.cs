@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using mini_project_csharp.Data;
 using mini_project_csharp.Models;
@@ -5,6 +6,8 @@ using mini_project_csharp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace mini_project_csharp.Controllers
 {
@@ -18,13 +21,27 @@ namespace mini_project_csharp.Controllers
     {
       _context = context;
     }
-
-    // Ação que lista todos os clientes e mostra o total
-    public IActionResult Index()
+    
+    public IActionResult Index(int pageNumber = 1, int pageSize = 5)
     {
-      var clients = _context.Clientes.Include(c => c.CodPostal).ToList(); // Busca os clientes e o código postal
-      ViewBag.TotalClientes = clients.Count; // Envia o total de clientes para a view
-      return View(clients);
+      var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
+      int totalCount = clients.Count;
+      int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+      
+      var items = clients.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+      
+      var pagedResult = new PagedResult<Client>
+      {
+        Items = items,
+        PageNumber = pageNumber,
+        PageSize = pageSize,
+        TotalPages = totalPages,
+        TotalCount = totalCount
+      };
+      
+      ViewBag.LoggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+      
+      return View(pagedResult);
     }
 
     [HttpGet] // Abre a pagina para adicionar um novo cliente
@@ -125,7 +142,21 @@ namespace mini_project_csharp.Controllers
 
       client.IdCodPostal = updatedClient.IdCodPostal;
 
-      _context.Clientes.Update(client); // Salva as alterações no banco
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      if (client.IdClientes.ToString() == userId)
+      {
+        var claims = new List<Claim>
+        {
+          new(ClaimTypes.Name, updatedClient.Nome),
+          new(ClaimTypes.Email, updatedClient.Email),
+          new(ClaimTypes.NameIdentifier, client.IdClientes.ToString())
+        };
+        
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity)).Wait();
+      }
+
+      _context.Clientes.Update(client);
       _context.SaveChanges();
 
       return RedirectToAction("Index");
@@ -134,12 +165,20 @@ namespace mini_project_csharp.Controllers
     [HttpGet] // Abre a página para confirmar a exclusão de um cliente
     public IActionResult Delete(int id)
     {
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id);
+      
       if (client == null)
       {
         return NotFound();
       }
-
+      
+      if (client.IdClientes.ToString() == userId)
+      {
+        ModelState.AddModelError(string.Empty, "Você não pode apagar um cliente que está loggado.");
+        return RedirectToAction("Index");
+      }
+      
       return View(client);
     }
 
@@ -147,13 +186,21 @@ namespace mini_project_csharp.Controllers
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(Client client)
     {
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var clientToDelete = _context.Clientes.FirstOrDefault(c => c.IdClientes == client.IdClientes);
+
       if (clientToDelete == null)
       {
         return NotFound();
       }
 
-      _context.Clientes.Remove(clientToDelete); // Remove o cliente da base de dados
+      if (clientToDelete.IdClientes.ToString() == userId)
+      {
+        ModelState.AddModelError(string.Empty, "Você não pode apagar um cliente que está loggado.");
+        return RedirectToAction("Index");
+      }
+      
+      _context.Clientes.Remove(clientToDelete); 
       _context.SaveChanges();
 
       return RedirectToAction("Index"); // Volta para a página inicial

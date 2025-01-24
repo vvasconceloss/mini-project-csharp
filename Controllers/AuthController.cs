@@ -69,15 +69,16 @@ namespace mini_project_csharp.Controllers
                 else
                 {
                     var passwordService = new PasswordService();
-
                     // Verifica se a palavra-passe fornecida está correta
+                    var userIdString = user.IdClientes.ToString();
                     if (passwordService.VerifyPassword(user.Password, model.Password))
                     {
                         // Cria as claims (informações do utilizador)
                         var claims = new List<Claim>
                         {
-                            new(ClaimTypes.Name, user.Nome), 
-                            new(ClaimTypes.Email, user.Email) 
+                            new(ClaimTypes.Name, user.Nome),
+                            new(ClaimTypes.Email, user.Email),
+                            new(ClaimTypes.NameIdentifier, userIdString),
                         };
 
                         // Cria a identidade para autenticação

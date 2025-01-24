@@ -9,6 +9,7 @@ namespace mini_project_csharp.Models
 
         [Required(ErrorMessage = "Um email precisa ser introduzido.")]
         [EmailAddress(ErrorMessage = "O este endereço de email não é válido.")]
+
         public required string Email { get; set; }
 
         [Required(ErrorMessage = "Uma password precisa ser definida.")]
