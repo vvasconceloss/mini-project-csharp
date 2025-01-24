@@ -26,6 +26,10 @@
                         @Html.ValidationMessageFor(model => model.Nome, null, new { @class = "text-danger" })
                     </div>
                     <div class="form-group mb-3">
+                        <label for="apelido" class="form-label">Apelido</label>
+                        <input type="text" id="apelido" name="Apelido" class="form-control"/>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" id="email" name="Email" class="form-control"/>
                         @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
