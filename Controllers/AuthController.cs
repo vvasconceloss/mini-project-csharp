@@ -40,7 +40,6 @@ namespace mini_project_csharp.Controllers
                     Nome = model.Nome,
                     Email = model.Email,
                     Password = hashedPassword,
-                    Apelido = model.Apelido
                 };
 
                 _context.Add(client);
