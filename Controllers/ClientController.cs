@@ -6,6 +6,8 @@ using mini_project_csharp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace mini_project_csharp.Controllers
 {
@@ -153,6 +155,20 @@ namespace mini_project_csharp.Controllers
       }
       
       client.IdCodPostal = updatedClient.IdCodPostal;
+
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      if (client.IdClientes.ToString() == userId)
+      {
+        var claims = new List<Claim>
+        {
+          new(ClaimTypes.Name, updatedClient.Nome),
+          new(ClaimTypes.Email, updatedClient.Email),
+          new(ClaimTypes.NameIdentifier, client.IdClientes.ToString())
+        };
+        
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity)).Wait();
+      }
 
       _context.Clientes.Update(client);
       _context.SaveChanges();
