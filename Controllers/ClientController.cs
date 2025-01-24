@@ -19,17 +19,27 @@ namespace mini_project_csharp.Controllers
       _context = context;
     }
     
-    public IActionResult Index()
+    public IActionResult Index(int pageNumber = 1, int pageSize = 5)
     {
       var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
-      ViewBag.TotalClientes = clients.Count;
+      int totalCount = clients.Count;
+      int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
       
-      var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-      ViewBag.LoggedInUserId = userId;
-
-    return View(clients);
-}
-
+      var items = clients.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+      
+      var pagedResult = new PagedResult<Client>
+      {
+        Items = items,
+        PageNumber = pageNumber,
+        PageSize = pageSize,
+        TotalPages = totalPages,
+        TotalCount = totalCount
+      };
+      
+      ViewBag.LoggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+      
+      return View(pagedResult);
+    }
 
     [HttpGet]
     public IActionResult Add()
