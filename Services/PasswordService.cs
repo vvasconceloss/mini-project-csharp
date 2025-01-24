@@ -4,7 +4,7 @@ using System.Text;
 namespace mini_project_csharp.Services {
   public class PasswordService
   {
-    string SecretKey = "YourSecretKey12345";
+    string SecretKey = "x8&@l0YJf$9TqW1!NvKp^6*z3dQrZAc";
 
     public string HashPassword(string password)
     {
