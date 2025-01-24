@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using mini_project_csharp.Data;
 using mini_project_csharp.Models;
@@ -17,14 +18,18 @@ namespace mini_project_csharp.Controllers
     {
       _context = context;
     }
-
+    
     public IActionResult Index()
     {
       var clients = _context.Clientes.Include(c => c.CodPostal).ToList();
       ViewBag.TotalClientes = clients.Count;
+      
+      var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+      ViewBag.LoggedInUserId = userId;
 
-      return View(clients);
-    }
+    return View(clients);
+}
+
 
     [HttpGet]
     public IActionResult Add()
@@ -148,26 +153,42 @@ namespace mini_project_csharp.Controllers
     [HttpGet]
     public IActionResult Delete(int id)
     {
-      var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id); 
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var client = _context.Clientes.FirstOrDefault(c => c.IdClientes == id);
+      
       if (client == null)
       {
-        return NotFound(); 
+        return NotFound();
       }
       
-      return View(client); 
+      if (client.IdClientes.ToString() == userId)
+      {
+        ModelState.AddModelError(string.Empty, "Você não pode apagar um cliente que está loggado.");
+        return RedirectToAction("Index");
+      }
+      
+      return View(client);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(Client client)
     {
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var clientToDelete = _context.Clientes.FirstOrDefault(c => c.IdClientes == client.IdClientes);
+
       if (clientToDelete == null)
       {
         return NotFound();
       }
+
+      if (clientToDelete.IdClientes.ToString() == userId)
+      {
+        ModelState.AddModelError(string.Empty, "Você não pode apagar um cliente que está loggado.");
+        return RedirectToAction("Index");
+      }
       
-      _context.Clientes.Remove(clientToDelete);
+      _context.Clientes.Remove(clientToDelete); 
       _context.SaveChanges();
       return RedirectToAction("Index");
     }
