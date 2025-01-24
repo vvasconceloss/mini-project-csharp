@@ -56,7 +56,7 @@ namespace mini_project_csharp.Controllers
             if (ModelState.IsValid)
             {
                 var user = _context.Clientes.FirstOrDefault(c => c.Email == model.Email);
-
+                
                 if (user == null)
                 {
                     ModelState.AddModelError(nameof(model.Email), "Este utilizador não existe.");
@@ -64,7 +64,6 @@ namespace mini_project_csharp.Controllers
                 else
                 {
                     var passwordService = new PasswordService();
-                    
                     if (passwordService.VerifyPassword(user.Password, model.Password))
                     {
                         var claims = new List<Claim>
@@ -84,7 +83,7 @@ namespace mini_project_csharp.Controllers
                     }
                 }
             }
-
+            
             return View("Login", model);
         }
 
