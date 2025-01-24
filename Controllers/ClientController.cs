@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using mini_project_csharp.Data;
 using mini_project_csharp.Models;
@@ -5,6 +6,8 @@ using mini_project_csharp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace mini_project_csharp.Controllers
 {
@@ -138,6 +141,7 @@ namespace mini_project_csharp.Controllers
       if (client == null)
       {
         return NotFound();
+        return NotFound();
       }
 
       return View(client);
@@ -147,7 +151,9 @@ namespace mini_project_csharp.Controllers
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(Client client)
     {
+      var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var clientToDelete = _context.Clientes.FirstOrDefault(c => c.IdClientes == client.IdClientes);
+
       if (clientToDelete == null)
       {
         return NotFound();
